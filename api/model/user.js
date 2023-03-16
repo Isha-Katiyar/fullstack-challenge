@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import autoIncrement from 'mongoose-auto-increment';
+// import autoIncrement from 'mongoose-auto-increment';
 
 // how our document look like
 const userSchema = mongoose.Schema({
@@ -9,9 +9,8 @@ const userSchema = mongoose.Schema({
     } ,
     Status: String,
     Repository: String,
-    Finding:String,
-    QueuedAt:String,
-    FinishedAt:String
+    // Finding:"",
+    
 },
 {timestamps:true}
 );

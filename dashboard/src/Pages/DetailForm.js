@@ -1,65 +1,87 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Form } from "semantic-ui-react";
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 const initialValue = {
-    ID: '',
-    Status: '',
-    Repository: '',
-    Finding:'',
-    QueuedAt:'',
-    FinishedAt:''
+  ID: "",
+  Status: "",
+  Repository: "",
+  // Finding: [
+  //   {
+  //     type: "sast",
+  //     ruleId: "G402",
+  //     location: {
+  //       path: "connectors/apigateway.go",
+  //       positions: {
+  //         begin: {
+  //           line: 60,
+  //         },
+  //       },
+  //     },
+
+  //   },
+  //   {
+  //     type: "sast",
+  //     ruleId: "G404",
+  //     location: {
+  //       path: "util/util.go",
+  //       positions: {
+  //         begin: {
+  //           line: 32,
+  //         },
+  //       },
+  //     },
+  //   },
+  // ],
 };
 
 export default function DetailForm() {
   const [user, setUser] = useState(initialValue);
-  const { ID,
-  Status,
-  Repository,
-  Finding,
-  QueuedAt,
-  FinishedAt } = user;
+  const { ID, Status, Repository } = user;
 
-//   let navigate = useNavigate();
+  let navigate = useNavigate();
 
   const onValueChange = (e) => {
-    console.log(e)
+    console.log(e);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
   const usersUrl = "http://localhost:8080";
 
-  const reset=()=>{
+  const reset = () => {
     setUser(initialValue);
-  }
+  };
   const addUserDetails = async () => {
-    const dd = await axios.post(`${usersUrl}/add`, user)
+    const dd = await axios.post(`${usersUrl}/add`, user);
     reset();
-    console.log(dd);
+    navigate("/dashboard");
 
     return dd;
   };
 
   return (
-    <>
+    <div className="Container">
       <Form>
+        <h1>Enter Your Details</h1>
         <Form.Field>
           <label>ID</label>
           <input
             onChange={(e) => onValueChange(e)}
             name="ID"
             value={ID}
-            placeholder="First Name"
+            placeholder="Ex:123456"
           />
         </Form.Field>
         <Form.Field>
           <label>Status</label>
-          <input
-            onChange={(e) => onValueChange(e)}
-            name='Status'
-            value={Status}
-            placeholder="First Name"
-          />
+          <select onChange={(e) => onValueChange(e)} name="Status">
+            <option value="">Select</option>
+            <option value="Queued">Queued</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Success">Success</option>
+            <option value="Failure">Failure</option>
+          </select>
         </Form.Field>
         <Form.Field>
           <label>Repository</label>
@@ -67,36 +89,14 @@ export default function DetailForm() {
             onChange={(e) => onValueChange(e)}
             name="Repository"
             value={Repository}
-            placeholder="First Name"
+            placeholder="Repository Name"
           />
         </Form.Field>
-        <Form.Field>
-          <label>Findings</label>
-          <input
-            onChange={(e) => onValueChange(e)}
-            name="Finding"
-            value={Finding}
-            placeholder="Finding"
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>QueuedAt</label>
-          <input
-            onChange={(e) => onValueChange(e)}
-            name="QueuedAt"
-            value={QueuedAt}
-            placeholder="QueuedAt"
-          />
-        </Form.Field>
-        <Form.Field>
-          <label>FinishedAt</label>
-          <input type={TimeRanges} value={FinishedAt} placeholder="FinishedAt" />
-        </Form.Field>
-        <Form.Field>
-          <Checkbox label="I agree to the Terms and Conditions" />
-        </Form.Field>
-        <Button type="submit" onClick={addUserDetails}>Submit</Button>
+
+        <Button type="submit" onClick={addUserDetails}>
+          Submit
+        </Button>
       </Form>
-    </>
+    </div>
   );
 }

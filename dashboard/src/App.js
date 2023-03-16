@@ -1,22 +1,21 @@
-import './App.css';
-import DetailForm from './Pages/DetailForm';
-import 'semantic-ui-css/semantic.min.css'
-import Dashboard from './Pages/Dashboard';
-import ListDashboard from './Pages/ListDashboard';
+import "./App.css";
+import DetailForm from "./Pages/DetailForm";
+import "semantic-ui-css/semantic.min.css";
+import Dashboard from "./Pages/Dashboard";
+import ListDashboard from "./Pages/ListDashboard";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 export default function App() {
   return (
     <div className="App">
-      <div className='Container'>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<DetailForm />} />
+          <Route path="/dashboard" element={<ListDashboard />} />
+        </Routes>
+      </BrowserRouter>
+      {/* <div className='Container'>
         <DetailForm ></DetailForm>
-      </div>
-      <div className='DAshboard'>
-
-        {/* <Dashboard></Dashboard> */}
-      </div>
-      <div className='ListDashboard'>
-        <ListDashboard></ListDashboard>
-      </div>
-
+      </div> */}
     </div>
   );
 }
