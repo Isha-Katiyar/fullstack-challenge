@@ -1,7 +1,6 @@
 import "./App.css";
 import DetailForm from "./Pages/DetailForm";
 import "semantic-ui-css/semantic.min.css";
-import Dashboard from "./Pages/Dashboard";
 import ListDashboard from "./Pages/ListDashboard";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 export default function App() {
